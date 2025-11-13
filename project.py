@@ -19,7 +19,7 @@ st.set_page_config(
 
 api_key = st.secrets.get("teach_apikey")
 client = genai.Client(api_key=api_key) if api_key else None
-max_outtokens = 10000
+max_outtokens = 100000
 
 
 def generative_teaching_ai(prompt: str) -> str:
