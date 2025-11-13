@@ -1,3 +1,2 @@
-google-generativeai
-st
-diffusers
+google-genai
+streamlit
