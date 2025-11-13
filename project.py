@@ -6,8 +6,6 @@ from io import BytesIO
 from google import genai
 from google.genai import types
 import streamlit as st
-
-
 api_key = st.secrets.get("teach_apikey")
 
 client = genai.Client(api_key=api_key) if api_key else None
