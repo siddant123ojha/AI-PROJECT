@@ -35,7 +35,7 @@ def generative_teaching_ai(prompt: str) -> str:
 def generative_math_ai(question: str) -> str:
     if not client:
         return "API key not configured."
-    contents = "Explain with detail: " + question
+    contents = "If I ask something like 4+5 no needt to explain it and just answer me shortly but if i ask something hard like solve for tan45 + cos45 you should explain it in detail. Now solve this:" + question
     response = client.models.generate_content(
         model="gemini-2.5-flash",
         contents=contents,
@@ -72,7 +72,7 @@ else:
     elif mode == "Generative Math AI":
         st.header("Generative Math AI")
         question = st.text_area("Enter a math question (or 'exit' to clear):", height=200)
-        if st.button("Explain Math", key="gen_math"):
+        if st.button("Solve", key="gen_math"):
             if not question.strip():
                 st.warning("Please enter a math question.")
             else:
