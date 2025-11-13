@@ -1,2 +1,1 @@
-# AI-PROJECT
-Ai teaching assistant
+AI Teaching Assistant

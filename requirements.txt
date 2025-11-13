@@ -1,2 +1,6 @@
 google-genai
 streamlit
+pillow
+requests
+pillow
+requests
