@@ -130,31 +130,44 @@ examples = [
 with st.container():
     col_in, col_out = st.columns([2, 3])
 
+    if 'busy' not in st.session_state:
+        st.session_state['busy'] = False
+
     with col_in:
         st.markdown("### Input")
         if mode == "Generative AI":
             prompt = st.text_area("Enter a prompt:", height=220, placeholder=examples[0])
             if st.button("Generate", key="gen_ai"):
-                if not prompt.strip():
+                if st.session_state['busy']:
+                    st.warning("A request is already running — please wait.")
+                elif not prompt.strip():
                     st.warning("Please enter a prompt or pick an example.")
                 else:
+                    st.session_state['busy'] = True
                     with st.spinner("Generating masterpiece..."):
                         try:
                             result = generative_teaching_ai(prompt)
                         except Exception as e:
                             result = f"Error: {e}"
+                        finally:
+                            st.session_state['busy'] = False
 
         else:
             prompt = st.text_area("Enter a math question:", height=220, placeholder=examples[3])
             if st.button("Solve", key="gen_math"):
-                if not prompt.strip():
+                if st.session_state['busy']:
+                    st.warning("A request is already running — please wait.")
+                elif not prompt.strip():
                     st.warning("Please enter a math question.")
                 else:
+                    st.session_state['busy'] = True
                     with st.spinner("Working through the math..."):
                         try:
                             result = generative_math_ai(prompt)
                         except Exception as e:
                             result = f"Error: {e}"
+                        finally:
+                            st.session_state['busy'] = False
 
         st.markdown("#### Quick examples")
         ex_cols = st.columns(2)
