@@ -4,6 +4,7 @@ import random
 import requests
 import json
 import os
+import hashlib
 from datetime import datetime
 from PIL import Image
 from io import BytesIO
@@ -22,24 +23,41 @@ st.set_page_config(
 
 api_key = st.secrets.get("teach_apikey")
 client = genai.Client(api_key=api_key) if api_key else None
-max_outtokens = 100000
+max_outtokens = 4096
 
 # --- Chat History Management ---
 HISTORY_FILE = "chat_history.json"
 
+def get_device_id():
+    """Generate a unique device ID based on session."""
+    if 'device_id' not in st.session_state:
+        # Create a unique ID for this device/browser
+        # Using a combination of timestamp and random hash for uniqueness
+        unique_string = f"{st.session_state.get('session_id', '')}{datetime.now().isoformat()}{random.random()}"
+        device_hash = hashlib.md5(unique_string.encode()).hexdigest()[:8]
+        st.session_state['device_id'] = device_hash
+    return st.session_state['device_id']
+
+def get_device_history_file():
+    """Get the device-specific history file path."""
+    device_id = get_device_id()
+    return f"chat_history_{device_id}.json"
+
 def load_chat_history():
-    """Load chat history from JSON file."""
-    if os.path.exists(HISTORY_FILE):
+    """Load chat history from device-specific JSON file."""
+    history_file = get_device_history_file()
+    if os.path.exists(history_file):
         try:
-            with open(HISTORY_FILE, 'r') as f:
+            with open(history_file, 'r') as f:
                 return json.load(f)
         except:
             return []
     return []
 
 def save_chat_history(history):
-    """Save chat history to JSON file."""
-    with open(HISTORY_FILE, 'w') as f:
+    """Save chat history to device-specific JSON file."""
+    history_file = get_device_history_file()
+    with open(history_file, 'w') as f:
         json.dump(history, f, indent=2)
 
 def add_to_history(mode, prompt, response):
