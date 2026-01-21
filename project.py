@@ -104,7 +104,7 @@ _CSS = """
 }
 
 html, body, [data-testid='stAppViewContainer'] > .main {
-  background: linear-gradient(135deg, #0a0e27 0%, #1a1f3a 50%, #0f1429 100%);
+  background: linear-gradient(135deg, #3d0066 0%, #5d2e8c 50%, #4a0099 100%);
   background-attachment: fixed;
 }
 
