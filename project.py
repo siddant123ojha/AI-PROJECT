@@ -606,12 +606,11 @@ with col2:
                     </div>
                 </div>
                 <div class='response-content'>
-                    {history_item['response'].replace(chr(10), '<br>')}
-                </div>
-            </div>
             """,
             unsafe_allow_html=True
         )
+        st.markdown(history_item['response'])
+        st.markdown("</div></div>", unsafe_allow_html=True)
         
         if st.button("Clear Selection", use_container_width=True):
             del st.session_state['selected_history']
@@ -659,12 +658,11 @@ with col2:
                             </div>
                         </div>
                         <div class='response-content'>
-                            {result.replace(chr(10), '<br>')}
-                        </div>
-                    </div>
                     """,
                     unsafe_allow_html=True
                 )
+                st.markdown(result)
+                st.markdown("</div></div>", unsafe_allow_html=True)
         
         elif surprise_btn:
             selected_example = random.choice(relevant_examples)
@@ -709,12 +707,11 @@ with col2:
                         </div>
                     </div>
                     <div class='response-content'>
-                        {result.replace(chr(10), '<br>')}
-                    </div>
-                </div>
                 """,
                 unsafe_allow_html=True
             )
+            st.markdown(result)
+            st.markdown("</div></div>", unsafe_allow_html=True)
         
         else:
             st.markdown(
