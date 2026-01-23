@@ -23,7 +23,7 @@ st.set_page_config(
 
 api_key = st.secrets.get("teach_apikey")
 client = genai.Client(api_key=api_key) if api_key else None
-max_outtokens = 4096
+max_outtokens = 2000
 
 # --- Chat History Management ---
 HISTORY_FILE = "chat_history.json"
