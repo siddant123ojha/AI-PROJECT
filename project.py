@@ -77,7 +77,7 @@ def generative_teaching_ai(prompt: str) -> str:
     if not client:
         return "API key not configured. Add `teach_apikey` to Streamlit secrets."
     response = client.models.generate_content(
-        model="gemini-2.5-flash",
+        model="gemini-3-pro-preview",
         contents=prompt,
         config=types.GenerateContentConfig(
             temperature=0.1,
@@ -96,7 +96,7 @@ def generative_math_ai(question: str) -> str:
         + question
     )
     response = client.models.generate_content(
-        model="gemini-2.5-flash",
+        model="gemini-3-pro-preview",
         contents=contents,
         config=types.GenerateContentConfig(
             temperature=0.1,
